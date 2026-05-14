@@ -1,0 +1,4 @@
+INSTALL:
+
+
+pip install PyQt5
