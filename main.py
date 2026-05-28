@@ -1,12 +1,16 @@
+import os
 import sys
+from pathlib import Path
 from PyQt5.QtWidgets import QApplication
-from game import Game
+from app_window import MainWindow
 
 
 def main():
-    
+    os.chdir(Path(__file__).resolve().parent)
     app = QApplication(sys.argv)
-    game = Game()
+    app.setApplicationName("Crossy Road Deluxe")
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec_())
 
 

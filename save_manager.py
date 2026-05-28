@@ -15,6 +15,10 @@ def save_game(game, filename="save.json"):
         "is_alive": game.is_alive,
         "start_word_row": game.start_word_row,
         "last_difficulty_step": game.last_difficulty_step,
+        "preset_label": getattr(game, "preset", {}).get("label", "Normalny"),
+        "preset_name": getattr(game, "preset", {}).get("name", "Klasyczny"),
+        "camera_speed": getattr(game, "camera_speed", 0.3),
+        "show_grid": getattr(game, "show_grid", False),
         "lanes": []
     }
 
@@ -66,6 +70,12 @@ def load_game(game, filename="save.json"):
     game.is_alive = data["is_alive"]
     game.start_word_row = data["start_word_row"]
     game.last_difficulty_step = data["last_difficulty_step"]
+    if hasattr(game, "preset"):
+        game.preset = dict(game.preset)
+        game.preset["label"] = data.get("preset_label", game.preset.get("label", "Normalny"))
+        game.preset["name"] = data.get("preset_name", game.preset.get("name", "Klasyczny"))
+    game.camera_speed = data.get("camera_speed", getattr(game, "camera_speed", 0.3))
+    game.show_grid = data.get("show_grid", getattr(game, "show_grid", False))
 
     game.lanes = {}
 
